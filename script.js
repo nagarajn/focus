@@ -26,13 +26,25 @@
     "#ffffff",
     "#000000",
   ];
+  var startTime = new Date().getTime();
+  var timerMaxTime;
+  //Set the background color of the timer to a random color
+  //at the beginning
+  $(".container").css("background-color", pickRandomColor(niceColors));
+  $(".container").css(
+    "background-color",
+    color2Rgba($(".container").css("background-color"))
+  );
 
   $("#time-input")[0].value = 0;
   //   console.log($("#time-input")[0].value);
   $("#time-input").on("input", function () {
     // console.log("You clicked", this.value);
+    startTime = new Date().getTime();
+    startTime = Math.round(startTime / 1000);
     let minutes = parseInt(this.value);
     let seconds = (parseFloat(this.value) - parseInt(this.value)) * 60;
+    timerMaxTime = minutes * 60 + seconds;
     updateSecondsAndMinutes(minutes, seconds);
     if (!calledPeriodicUpdate) {
       periodicUpdate();
@@ -43,22 +55,29 @@
   function periodicUpdate() {
     //update the count down in every 1 second
     let update = setInterval(function () {
+      currTime = new Date().getTime();
+      currTime = Math.round(currTime / 1000);
+      let elapsedTime = currTime - startTime;
+      let remainingTime = timerMaxTime - elapsedTime;
+      // console.log(elapsedTime, timerMaxTime, remainingTime);
       // console.log("update");
-      let minutes = $("#minutes")[0].innerHTML;
-      let seconds = $("#seconds")[0].innerHTML;
-      // console.log("Seconds ", seconds, typeof seconds);
+      let minutes = "";
+      let seconds = "";
+      if (remainingTime <= 0) {
+        minutes = "00";
+        seconds = "00";
+      } else {
+        minutes = Math.floor(remainingTime / 60);
+        seconds = remainingTime % 60;
+      }
+      // console.log("Seconds ", seconds, "minutes", minutes);
 
       if (minutes == "00" && seconds == "00") {
+        updateSecondsAndMinutes(minutes, seconds);
         clearInterval(update);
         // console.log("Done", typeof seconds);
         calledPeriodicUpdate = false;
-      } else if (seconds != "00") {
-        seconds = parseInt(seconds) - 1;
-        minutes = parseInt(minutes);
-        updateSecondsAndMinutes(minutes, seconds);
-      } else if (seconds == "00") {
-        seconds = parseInt("59");
-        minutes = parseInt(minutes) - 1;
+      } else {
         updateSecondsAndMinutes(minutes, seconds);
       }
     }, 1000);
@@ -70,7 +89,7 @@
     $("#seconds")[0].innerHTML = ("00" + seconds).slice(-2);
     $("#time-input")[0].value = minutes + seconds / 60;
   }
-  console.log($(".color-picker-wrapper"));
+  // console.log($(".color-picker-wrapper"));
   for (let i = 0; i < 20; i++) {
     $(".color-picker-wrapper").append(
       "<div class='color-picker' style='background-color:" +
@@ -80,9 +99,17 @@
   }
   $(".color-picker").on("click", function () {
     let color = $(this).css("background-color");
-    color = color.replace("rgb", "rgba");
-    color = color.replace(")", ", 0.25)");
-    console.log(color, typeof color);
-    $(".container").css("background-color", color);
+    let rgba = color2Rgba(color);
+    $(".container").css("background-color", rgba);
   });
+  //Given a color, convert it to rgba
+  function color2Rgba(color) {
+    rgba = color.replace("rgb", "rgba");
+    rgba = rgba.replace(")", ", 0.25)");
+    return rgba;
+  }
+  //Pick a random color from the list of colors
+  function pickRandomColor(niceColors) {
+    return niceColors[Math.floor(Math.random() * niceColors.length)];
+  }
 })();
