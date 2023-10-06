@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
   <head>
-        <script src="jQuery.js" defer></script>
-
+    <script src="jQuery.js" defer></script>
     <script src="script.js" defer></script>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Focus</title>
-
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon-32x32.png" />
     <link href="bootstrap.min.css" rel="stylesheet" />
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="container text-center p-5 my-5">
-        <h1 class="text-body-emphasis"><span id="minutes">00</span>m:<span id="seconds">00</span>s</h1>
+    <div class="container text-center my-5 p-5">
+      <h1>
+        <span id="minutes">00</span>m:<span id="seconds">00</span>s
+      </h1>
     </div>
     <div class="p-5">
-    <input
-      type="range"
-      class="form-range"
-      min="0"
-      max="60"
-      step="0.5"
-      id="time-input"
-    />
+      <input
+        type="range"
+        class="form-range"
+        min="0"
+        max="60"
+        step="0.5"
+        id="time-input"
+      />
     </div>
+    <div class="color-picker-wrapper">
+      <!-- <div class="color-picker">one</div>
+      <div class="color-picker">two</div>
+      <div class="color-picker">three</div> -->
 
+    </div>
   </body>
 </html>

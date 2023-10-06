@@ -4,9 +4,26 @@
     height: 60vh;
     text-align: center;
     background-color: aliceblue;
+    display: flex;
+        justify-content: center;
+        align-items: center;
 }
 
+.color-picker {
+    display: inline-block;
+    background-color: red;
+    min-width: 5%;
+    min-height: 3vh;
+    width: 5%;
+}
+
+.color-picker:hover {
+    transform: scale(1.5);
+}
 h1 {
-    font-size: 18vmin;
-    vertical-align: middle;
+    font-size: 20vmin;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bolder;
+        top: 50%;
+        left: 50%;
 }
