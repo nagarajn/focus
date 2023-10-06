@@ -1,0 +1,12 @@
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+    height: 60vh;
+    text-align: center;
+    background-color: aliceblue;
+}
+
+h1 {
+    font-size: 18vmin;
+    vertical-align: middle;
+}
