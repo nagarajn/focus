@@ -77,6 +77,7 @@
         clearInterval(update);
         // console.log("Done", typeof seconds);
         calledPeriodicUpdate = false;
+        playSound();
       } else {
         updateSecondsAndMinutes(minutes, seconds);
       }
@@ -111,5 +112,13 @@
   //Pick a random color from the list of colors
   function pickRandomColor(niceColors) {
     return niceColors[Math.floor(Math.random() * niceColors.length)];
+  }
+
+  function playSound() {
+    var audio = new Audio("Beeper.mp3");
+    audio.play();
+    setTimeout(() => {
+      audio.pause();
+    }, 2500);
   }
 })();
